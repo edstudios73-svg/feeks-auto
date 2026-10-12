@@ -6,15 +6,34 @@
 <title>Feek's Autos Ghana | Clean cars only</title>
 <meta name="description" content="Buy, swap, import and rent clean cars in Accra. Imports from the USA, Germany and Japan. Visit our garage in Abelemkpe to inspect any car.">
 <meta name="theme-color" content="#13214A">
+<meta name="color-scheme" content="light">
+<link rel="canonical" href="https://feeks-autos-ghana.vercel.app/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Feek's Autos Ghana">
+<meta property="og:url" content="https://feeks-autos-ghana.vercel.app/">
 <meta property="og:title" content="Feek's Autos Ghana | Clean cars only">
-<meta property="og:description" content="Buy, swap, import and rent clean cars. Garage in Abelemkpe, Accra.">
-<meta property="og:image" content="https://images.unsplash.com/photo-1590362891991-f776e747a588?w=1200&q=80">
-<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta property="og:description" content="Sell, swap, ship and rent. Inspect any car at our garage in Abelemkpe, Accra. WhatsApp +233 50 577 4420.">
+<meta property="og:image" content="https://feeks-autos-ghana.vercel.app/img/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Feek's Autos Ghana: clean cars only. BMW X6, Range Rover and Mercedes E350 in Accra.">
+<meta property="og:locale" content="en_GH">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Feek's Autos Ghana | Clean cars only">
+<meta name="twitter:description" content="Sell, swap, ship and rent. Garage in Abelemkpe, Accra.">
+<meta name="twitter:image" content="https://feeks-autos-ghana.vercel.app/img/og.jpg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/img/icons/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/img/icons/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="apple-mobile-web-app-title" content="Feek's Autos">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://images.unsplash.com">
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&display=swap" rel="stylesheet">
-<link rel="preload" as="image" href="https://images.unsplash.com/photo-1590362891991-f776e747a588?w=900&q=75&auto=format" imagesrcset="https://images.unsplash.com/photo-1590362891991-f776e747a588?w=900&q=75&auto=format 900w, https://images.unsplash.com/photo-1590362891991-f776e747a588?w=1600&q=75&auto=format 1600w, https://images.unsplash.com/photo-1590362891991-f776e747a588?w=2400&q=75&auto=format 2400w" imagesizes="(max-aspect-ratio: 1/1) 150vh, 100vw">
+<link rel="preload" as="image" href="img/cars/bmw-x6-2022-tall.jpg">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"AutoDealer","name":"Feek's Autos Ghana","image":"https://feeks-autos-ghana.vercel.app/img/og.jpg","logo":"https://feeks-autos-ghana.vercel.app/img/logo.png","telephone":"+233505774420","email":"feeksautosgh@gmail.com","url":"https://feeks-autos-ghana.vercel.app/","address":{"@type":"PostalAddress","addressLocality":"Abelemkpe, Accra","addressCountry":"GH"},"sameAs":["https://www.instagram.com/feeks_autos_ghana/"]}
+</script>
 <style>
 :root{
   --navy:#13214A;
@@ -40,23 +59,41 @@ a{color:inherit}
 
 /* ---------- Header ---------- */
 .top{position:absolute;inset:0 0 auto 0;z-index:5;padding:calc(14px + env(safe-area-inset-top)) var(--gutter) 0;display:flex;align-items:center;justify-content:space-between;color:var(--white)}
-.brand{display:flex;align-items:baseline;gap:6px;text-decoration:none;font-weight:900;font-size:19px;letter-spacing:-.01em;font-variation-settings:"wdth" 125}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:900;font-size:19px;letter-spacing:-.01em;font-variation-settings:"wdth" 125}
 .brand span{color:var(--yellow)}
-.top nav{display:none;gap:28px;font-weight:600;font-size:15px}
+.brand b{font-weight:inherit}
+.brand img{width:44px;height:44px;border-radius:50%;box-shadow:0 0 0 2px var(--yellow)}
+.top{top:calc(28px + env(safe-area-inset-top))!important;padding-top:0!important}
+.top nav{display:none;gap:28px;margin:0 auto 0 48px;font-weight:600;font-size:15px}
 .top nav a{text-decoration:none;opacity:.85}
 .top nav a:hover{opacity:1}
 .icon-btn{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.14);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:var(--white)}
 .icon-btn svg{width:22px;height:22px}
 
 /* ---------- Hero ---------- */
-.hero{position:relative;min-height:100svh;min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;color:var(--white);overflow:hidden;background:var(--navy-deep);isolation:isolate}
+.hero{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;color:var(--white);overflow:hidden;background:var(--navy-deep);isolation:isolate}
 @supports(min-height:100svh){.hero{min-height:100svh}}
-.hero-img{position:absolute;inset:0;z-index:-2}
-.hero-img img{width:100%;height:100%;object-fit:cover;object-position:52% 40%;transform:scale(1.12);animation:settle 2.6s cubic-bezier(.2,.7,.1,1) forwards}
-.hero::after{content:"";position:absolute;inset:0;z-index:-1;background:
-  linear-gradient(180deg,rgba(10,18,48,.55) 0%,rgba(10,18,48,0) 22%,rgba(10,18,48,0) 38%,rgba(10,18,48,.88) 68%,var(--navy-deep) 100%)}
-.hero-body{padding:0 var(--gutter) calc(28px + env(safe-area-inset-bottom));max-width:1180px;width:100%;margin:0 auto}
-
+.stage{position:absolute;left:0;right:0;top:0;height:76%;z-index:-1;overflow:hidden;-webkit-mask-image:linear-gradient(#000 70%,transparent);mask-image:linear-gradient(#000 70%,transparent);touch-action:pan-y}
+.slide{position:absolute;inset:0;opacity:0;transition:opacity .9s ease}
+.slide.on{opacity:1}
+.slide img{width:100%;height:100%;object-fit:cover;object-position:50% 100%;transform:scale(1.08)}
+.slide.on img{animation:drift 7s linear forwards}
+.stage::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,18,48,.6) 0%,rgba(10,18,48,0) 24%)}
+.bars{position:absolute;z-index:6;left:var(--gutter);right:var(--gutter);top:calc(8px + env(safe-area-inset-top));display:flex;gap:5px}
+.bars button{flex:1;height:14px;padding:5px 0;border:0;background:none;cursor:pointer}
+.bars span{display:block;height:3px;border-radius:2px;background:rgba(255,255,255,.35);overflow:hidden}
+.bars i{display:block;height:100%;width:0;background:var(--white)}
+.bars .done i{width:100%}
+.bars .on i{animation:fill var(--dur,6s) linear forwards}
+.paused .bars .on i{animation-play-state:paused}
+.tap{position:absolute;top:80px;bottom:45%;width:35%;z-index:2;border:0;background:none;cursor:pointer}
+.tap.prev{left:0}.tap.next{right:0}
+.hero-body{padding:0 var(--gutter) calc(26px + env(safe-area-inset-bottom));max-width:1180px;width:100%;margin:0 auto}
+.now{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px;font-size:15px}
+.now b{font-weight:700;font-variation-settings:"wdth" 108;text-shadow:0 1px 12px rgba(0,0,0,.6)}
+.now a{flex:none;display:inline-flex;align-items:center;gap:6px;padding:7px 12px;border-radius:999px;background:rgba(255,255,255,.16);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);font-weight:700;font-size:13px;text-decoration:none}
+@keyframes drift{from{transform:scale(1.08)}to{transform:scale(1)}}
+@keyframes fill{to{width:100%}}
 .plate{position:relative;container-type:inline-size;display:flex;align-items:stretch;width:100%;max-width:640px;background:var(--yellow);color:var(--navy-deep);border-radius:10px;border:3px solid var(--navy-deep);box-shadow:0 0 0 2px var(--yellow),0 24px 60px -20px rgba(0,0,0,.8);overflow:hidden;opacity:0;transform:translateY(28px) rotateX(35deg);transform-origin:50% 100%;animation:plateIn .9s .55s cubic-bezier(.2,.9,.25,1.15) forwards}
 .plate-side{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:0 8px;background:var(--navy);color:var(--white)}
 .flag{width:22px;height:15px;display:flex;flex-direction:column;border-radius:2px;overflow:hidden;position:relative}
@@ -72,9 +109,10 @@ a{color:inherit}
 .plate::after{content:"";position:absolute;top:0;bottom:0;left:-40%;width:30%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.75),transparent);transform:skewX(-18deg);animation:sweep 1.1s 1.45s ease-out forwards;pointer-events:none}
 .plate .bolt{position:absolute;top:50%;width:7px;height:7px;margin-top:-3.5px;border-radius:50%;background:rgba(10,18,48,.35)}
 
-.hero-copy{margin:22px 0 0;max-width:30ch;font-size:19px;line-height:1.45;color:rgba(255,255,255,.9);opacity:0;animation:fade .7s 1.2s ease forwards}
+.hero-big{display:none;margin:0 0 22px;font-weight:900;font-size:clamp(40px,4.6vw,72px);line-height:.95;letter-spacing:-.02em;font-variation-settings:"wdth" 125;color:var(--white)}
+.hero-copy{margin:18px 0 0;max-width:30ch;font-size:19px;line-height:1.45;color:rgba(255,255,255,.9);opacity:0;animation:fade .7s 1.2s ease forwards}
 .hero-copy strong{color:var(--white);font-weight:700}
-.hero-cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px;opacity:0;animation:fade .7s 1.35s ease forwards}
+.hero-cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px;opacity:0;animation:fade .7s 1.35s ease forwards}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;white-space:nowrap;min-height:52px;padding:0 22px;border-radius:999px;font:inherit;font-weight:700;font-size:16px;text-decoration:none;border:0;cursor:pointer;transition:transform .15s ease,background-color .15s ease}
 .btn:active{transform:scale(.97)}
 .btn svg{width:20px;height:20px;flex:none}
@@ -86,7 +124,7 @@ a{color:inherit}
 .btn-navy:hover{background:var(--navy-deep)}
 .btn-wa{background:var(--wa);color:#05361a}
 .hero-cta .btn{flex:1 1 140px}
-.origins .tema{display:none}
+.origins{display:none!important}
 
 .origins{display:flex;gap:18px;margin:26px 0 0;padding:16px 0 0;border-top:1px solid rgba(255,255,255,.18);font-size:14px;color:rgba(255,255,255,.75);opacity:0;animation:fade .7s 1.5s ease forwards}
 .origins li{list-style:none;display:flex;align-items:center;gap:6px}
@@ -124,7 +162,8 @@ section{padding:72px 0}
 .car{background:var(--white);border-radius:18px;overflow:hidden;display:flex;flex-direction:column}
 .car-img{position:relative;aspect-ratio:4/3;background:#dfe3ec;overflow:hidden}
 .car-img img{width:100%;height:100%;object-fit:cover}
-.tag{position:absolute;left:12px;top:12px;padding:5px 10px;border-radius:6px;background:var(--yellow);color:var(--navy-deep);font-weight:800;font-size:13px;font-variation-settings:"wdth" 110}
+.tag{position:absolute;left:12px;top:12px;padding:3px 10px;border-radius:6px;background:var(--yellow);color:var(--navy-deep);border:2px solid var(--navy-deep);font-weight:900;font-size:15px;font-variation-settings:"wdth" 118}
+.tag-2{left:auto;right:12px;background:var(--white);border-color:var(--white);font-size:13px;font-weight:800;font-variation-settings:"wdth" 100}
 .car-body{padding:18px 18px 20px;display:flex;flex-direction:column;gap:12px;flex:1}
 .car-title{margin:0;font-weight:800;font-size:22px;line-height:1.15;font-variation-settings:"wdth" 108}
 .car-title small{display:block;font-weight:600;font-size:14px;color:var(--steel);margin-bottom:2px;font-variation-settings:"wdth" 100}
@@ -185,7 +224,8 @@ footer .brand{color:var(--white);font-size:24px}
   :root{--gutter:32px}
   .cars{grid-template-columns:repeat(2,1fr)}
   .hero-cta .btn{flex:0 0 auto}
-  .origins .tema{display:inline}
+  .origins{display:flex!important}
+
   .plate{max-width:880px}
   .plate h1{font-size:7.6cqi;padding:14px 16px 12px;white-space:nowrap}
   .plate h1 span{display:inline}
@@ -204,8 +244,20 @@ footer .brand{color:var(--white);font-size:24px}
   .steps{grid-template-columns:repeat(4,1fr);gap:24px}
   .steps li{grid-template-columns:1fr;border-top:3px solid var(--navy);padding-top:24px}
   .steps li::before{grid-row:auto;margin-bottom:10px}
-  .hero-img img{object-position:50% 45%}
-  .hero-body{padding-bottom:56px}
+  
+  .hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,46%);align-items:end}
+  .stage{left:auto;width:46%;height:100%;-webkit-mask-image:none;mask-image:none}
+  .stage::after{background:linear-gradient(90deg,var(--navy-deep) 0%,rgba(10,18,48,0) 22%),linear-gradient(180deg,rgba(10,18,48,.55) 0%,rgba(10,18,48,0) 20%)}
+  .slide img{object-position:50% 85%}
+  .bars{left:auto;right:32px;width:calc(46% - 64px);top:92px}
+  .tap{top:110px;bottom:20%;width:23%}
+  .tap.prev{left:auto;right:23%}
+  .hero-body{grid-column:1;align-self:center;padding:120px 56px 72px max(32px,calc((100vw - 1180px)/2 + 32px));max-width:none}
+  .hero-copy{font-size:21px}
+  .hero-big{display:block!important}
+  .hero-copy{max-width:36ch}
+  .now{position:absolute;right:32px;bottom:32px;width:calc(46% - 64px);margin:0}
+  .plate{max-width:none}
   .svc{grid-template-columns:minmax(0,1.1fr) minmax(0,1fr) auto;align-items:center}
   .svc p{grid-column:2;grid-row:1;margin:0}
   .svc a{grid-column:3}
@@ -222,7 +274,7 @@ footer .brand{color:var(--white);font-size:24px}
 <body>
 
 <header class="top">
-  <a class="brand" href="#top" aria-label="Feek's Autos home">FEEK'S <span>AUTOS</span></a>
+  <a class="brand" href="#top" aria-label="Feek's Autos home"><img src="img/icons/icon-192.png" alt="" width="44" height="44"><b>FEEK'S <span>AUTOS</span></b></a>
   <nav aria-label="Main">
     <a href="#services">Services</a>
     <a href="#stock">Cars in stock</a>
@@ -235,13 +287,14 @@ footer .brand{color:var(--white);font-size:24px}
 </header>
 
 <main id="top">
-  <section class="hero" aria-label="Feek's Autos Ghana" style="padding:0">
-    <div class="hero-img">
-      <img src="https://images.unsplash.com/photo-1590362891991-f776e747a588?w=900&q=75&auto=format"
-           srcset="https://images.unsplash.com/photo-1590362891991-f776e747a588?w=900&q=75&auto=format 900w, https://images.unsplash.com/photo-1590362891991-f776e747a588?w=1600&q=75&auto=format 1600w, https://images.unsplash.com/photo-1590362891991-f776e747a588?w=2400&q=75&auto=format 2400w"
-           sizes="(max-aspect-ratio: 1/1) 150vh, 100vw" alt="White Mercedes-Benz SUV parked in a lit garage bay" fetchpriority="high">
-    </div>
+  <section class="hero" id="hero" aria-label="Cars at Feek's Autos" aria-roledescription="carousel" style="padding:0">
+    <div class="stage" id="stage"></div>
+    <div class="bars" id="bars" role="tablist" aria-label="Choose a car photo"></div>
+    <button class="tap prev" aria-label="Previous car"></button>
+    <button class="tap next" aria-label="Next car"></button>
     <div class="hero-body">
+      <div class="now" aria-live="polite"><b id="now-name">2022 BMW X6 xDrive40i</b><a id="now-link" href="#stock" target="_blank" rel="noopener">Book inspection</a></div>
+      <p class="hero-big" aria-hidden="true">Sell. Swap. Ship. Rent.</p>
       <div class="plate">
         <div class="plate-side" aria-hidden="true">
           <div class="flag"><i></i><i></i><i></i><b>★</b></div>
@@ -250,7 +303,7 @@ footer .brand{color:var(--white);font-size:24px}
         <h1><span>CLEAN CARS</span> <span>ONLY</span></h1>
         <span class="bolt" style="right:10px" aria-hidden="true"></span>
       </div>
-      <p class="hero-copy">Buy, swap, import or rent your next car with <strong>Feek's Autos</strong>. Every car can be inspected at our garage in Abelemkpe, Accra.</p>
+      <p class="hero-copy">Buy, swap, import or rent your next car. Come and inspect any car at our garage in <strong>Abelemkpe, Accra</strong>.</p>
       <div class="hero-cta">
         <a class="btn btn-yellow" href="#stock">View cars</a>
         <a class="btn btn-ghost" data-wa="Hi Feek's Autos, I'm looking for a car." href="https://wa.me/233505774420" target="_blank" rel="noopener">
@@ -304,13 +357,12 @@ footer .brand{color:var(--white);font-size:24px}
       <div class="stock-head">
         <div>
           <h2 class="h2">In the garage now</h2>
-          <p class="lede">See one you like? Book a time to come and inspect it in Abelemkpe.</p>
+          <p class="lede">Fresh from our Instagram. Cars sell fast, so tap Book inspection to check it&rsquo;s still available.</p>
         </div>
         <div class="chips" role="group" aria-label="Filter cars">
           <button class="chip" aria-pressed="true" data-filter="all">All cars</button>
           <button class="chip" aria-pressed="false" data-filter="suv">SUVs</button>
           <button class="chip" aria-pressed="false" data-filter="saloon">Saloons</button>
-          <button class="chip" aria-pressed="false" data-filter="sport">Sports</button>
         </div>
       </div>
       <div class="cars" id="cars" aria-live="polite"></div>
@@ -370,7 +422,7 @@ footer .brand{color:var(--white);font-size:24px}
 <footer>
   <div class="wrap foot-grid">
     <div>
-      <a class="brand" href="#top">FEEK'S <span>AUTOS</span></a>
+      <a class="brand" href="#top"><img src="img/icons/icon-192.png" alt="Feek's Autos logo" width="56" height="56" style="width:56px;height:56px"><b>FEEK'S <span>AUTOS</span></b></a>
       <p style="margin:10px 0 0;max-width:34ch">Ghana's trusted dealer for clean cars. Sell, swap, ship and rent.</p>
     </div>
     <div class="foot-links">
@@ -395,36 +447,49 @@ const PHONE = "233505774420";
 const wa = (msg) => `https://wa.me/${PHONE}?text=${encodeURIComponent(msg)}`;
 
 // Edit this list to update the cars shown on the site.
+// img = file name in img/cars/, pos = which part of the photo to keep in the card.
 const CARS = [
-  { name:"Mercedes-Benz GLE 43 Coupe", year:2019, type:"suv", from:"USA", km:"38,000 mi", gear:"Automatic", fuel:"Petrol", img:"1590362891991-f776e747a588", alt:"White Mercedes-Benz GLE Coupe in a garage" },
-  { name:"Toyota Camry SE", year:2020, type:"saloon", from:"USA", km:"41,000 mi", gear:"Automatic", fuel:"Petrol", img:"1621007947382-bb3c3994e3fb", alt:"Grey Toyota Camry parked on cobblestones" },
-  { name:"Ford Expedition Limited", year:2018, type:"suv", from:"USA", km:"52,000 mi", gear:"Automatic", fuel:"Petrol", img:"1533473359331-0135ef1b58bf", alt:"White Ford Expedition on a desert road" },
-  { name:"Hyundai Accent", year:2019, type:"saloon", from:"Ghana used", km:"64,000 km", gear:"Automatic", fuel:"Petrol", img:"1619767886558-efdc259cde1a", alt:"Black Hyundai Accent driving past palm trees" },
-  { name:"Audi RS6 Avant", year:2018, type:"sport", from:"Germany", km:"47,000 km", gear:"Automatic", fuel:"Petrol", img:"1606664515524-ed2f786a0bd6", alt:"Black Audi RS6 Avant, front view" },
-  { name:"BMW M4 Coupe", year:2019, type:"sport", from:"Germany", km:"29,000 km", gear:"Automatic", fuel:"Petrol", img:"1580273916550-e323be2ae537", alt:"Grey BMW M4 at sunset" },
-  { name:"Porsche Panamera 4", year:2018, type:"saloon", from:"USA", km:"33,000 mi", gear:"Automatic", fuel:"Petrol", img:"1503376780353-7e6692767b70", alt:"Black Porsche Panamera on a highway" },
-  { name:"Ford Mustang GT", year:2018, type:"sport", from:"USA", km:"27,000 mi", gear:"Automatic", fuel:"Petrol", img:"1494976388531-d1058494cdd8", alt:"Black Ford Mustang, front view" },
+  { name:"Honda CR-V Sport", year:2025, type:"suv", img:"honda-crv-2025", tag:"Freshly cleared", feats:["Full option","Sport trim"] },
+  { name:"Honda CR-V Sport Touring", year:2024, type:"suv", img:"honda-crv-2024", tag:"Freshly cleared", feats:["Full option","Touring trim"] },
+  { name:"BMW X6 xDrive40i", year:2022, type:"suv", img:"bmw-x6-2022", feats:["xDrive AWD","Fully loaded"] },
+  { name:"Honda Civic Sport", year:2022, type:"saloon", img:"honda-civic-2022", feats:["Keyless entry","Side camera"] },
+  { name:"Range Rover Vogue Autobiography", year:2021, type:"suv", img:"range-rover-2021", feats:["Fully loaded","Autobiography"] },
+  { name:"Toyota Highlander XLE", year:2021, type:"suv", img:"toyota-highlander-2021", pos:"50% 72%", feats:["AWD","V6"] },
+  { name:"Mercedes-Benz E350 4Matic", year:2021, type:"saloon", img:"mercedes-e350-2021", feats:["Remote keyless entry","Keyless ignition"] },
+  { name:"Honda HR-V Touring", year:2020, type:"suv", img:"honda-hrv-2020", feats:["Keyless entry","Side camera"] },
+  { name:"Mitsubishi Outlander", year:2020, type:"suv", img:"mitsubishi-outlander-2020", feats:["Limited edition","Push start"] },
+  { name:"Hyundai Elantra SE", year:2020, type:"saloon", img:"hyundai-elantra-2020", pos:"50% 82%", feats:["Full option","Push start"] },
+  { name:"Mercedes-Benz E300 4Matic", year:2017, type:"saloon", img:"mercedes-e300-2017", feats:["Remote keyless entry","Keyless ignition"] },
+  { name:"Toyota Corolla XSE", year:2017, type:"saloon", img:"toyota-corolla-2017", feats:["Fully loaded","Push start"] },
+  { name:"Hyundai Elantra", year:2017, type:"saloon", img:"hyundai-elantra-2017", feats:["Key start","Rear view camera"] },
+  { name:"Scion iA", year:2016, type:"saloon", img:"scion-ia-2016", feats:["Push start","1.5L 4-cylinder"] },
 ];
 
-const img = (id, w) => `https://images.unsplash.com/photo-${id}?w=${w}&q=70&auto=format&fit=crop`;
+// Hero slideshow photos
+const SLIDES = [
+  { name:"2022 BMW X6 xDrive40i", img:"bmw-x6-2022-tall" },
+  { name:"2021 Toyota Highlander XLE", img:"toyota-highlander-2021" },
+  { name:"2020 Hyundai Elantra SE", img:"hyundai-elantra-2020" },
+];
+
+const carMsg = (title) => `Hi Feek's Autos, I'm interested in the ${title} I saw on your website. Is it still available? When can I come to Abelemkpe to inspect it?`;
 const grid = document.getElementById("cars");
 
 function render(filter){
   const list = CARS.filter(c => filter === "all" || c.type === filter);
   grid.innerHTML = list.map(c => {
     const title = `${c.year} ${c.name}`;
-    const msg = `Hi Feek's Autos, I'm interested in the ${title} I saw on your website. When can I come to Abelemkpe to inspect it?`;
     return `<article class="car">
       <div class="car-img">
-        <img loading="lazy" src="${img(c.img,700)}" srcset="${img(c.img,500)} 500w, ${img(c.img,900)} 900w" sizes="(min-width:960px) 33vw, (min-width:640px) 50vw, 100vw" alt="${c.alt}">
-        <span class="tag">${c.from}</span>
+        <img loading="lazy" src="img/cars/${c.img}.jpg" width="828" height="826" style="object-position:${c.pos || "50% 50%"}" alt="${title} at Feek's Autos">
+        <span class="tag">${c.year}</span>${c.tag ? `<span class="tag tag-2">${c.tag}</span>` : ""}
       </div>
       <div class="car-body">
-        <h3 class="car-title"><small>${c.year}</small>${c.name}</h3>
-        <ul class="specs"><li>${c.km}</li><li>${c.gear}</li><li>${c.fuel}</li></ul>
+        <h3 class="car-title">${c.name}</h3>
+        <ul class="specs">${c.feats.map(f => `<li>${f}</li>`).join("")}</ul>
         <div class="car-foot">
           <span class="price">Ask for price</span>
-          <a class="btn btn-navy" href="${wa(msg)}" target="_blank" rel="noopener">Book inspection</a>
+          <a class="btn btn-navy" href="${wa(carMsg(title))}" target="_blank" rel="noopener">Book inspection</a>
         </div>
       </div>
     </article>`;
@@ -453,6 +518,48 @@ document.getElementById("book").addEventListener("submit", e => {
   const msg = `Hi Feek's Autos, my name is ${f.get("name")}. I'd like to come to the garage in Abelemkpe on ${date} to inspect the ${car}.`;
   window.open(wa(msg), "_blank", "noopener");
 });
+
+// Hero slideshow, Instagram-story style
+const hero = document.getElementById("hero");
+const stage = document.getElementById("stage");
+const bars = document.getElementById("bars");
+const nowName = document.getElementById("now-name");
+const nowLink = document.getElementById("now-link");
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const DUR = 6000;
+SLIDES.forEach((sl, i) => {
+  stage.insertAdjacentHTML("beforeend", `<div class="slide"><img src="img/cars/${sl.img}.jpg" alt="${sl.name} at Feek's Autos" ${i ? 'loading="lazy"' : 'fetchpriority="high"'}></div>`);
+  bars.insertAdjacentHTML("beforeend", `<button role="tab" aria-label="Show ${sl.name}"><span><i></i></span></button>`);
+});
+const slides = [...stage.children], tabs = [...bars.children];
+let cur = 0, timer;
+function show(i){
+  cur = (i + SLIDES.length) % SLIDES.length;
+  slides.forEach((el, k) => el.classList.toggle("on", k === cur));
+  tabs.forEach((el, k) => {
+    el.classList.toggle("done", k < cur);
+    el.classList.remove("on"); void el.offsetWidth;
+    el.classList.toggle("on", k === cur);
+    el.setAttribute("aria-selected", k === cur);
+  });
+  nowName.textContent = SLIDES[cur].name;
+  nowLink.href = wa(carMsg(SLIDES[cur].name));
+  clearTimeout(timer);
+  if (!reduce) timer = setTimeout(() => show(cur + 1), DUR);
+}
+bars.style.setProperty("--dur", DUR + "ms");
+tabs.forEach((t, k) => t.addEventListener("click", () => show(k)));
+hero.querySelector(".tap.prev").addEventListener("click", () => show(cur - 1));
+hero.querySelector(".tap.next").addEventListener("click", () => show(cur + 1));
+let x0 = null;
+hero.addEventListener("touchstart", e => x0 = e.touches[0].clientX, { passive: true });
+hero.addEventListener("touchend", e => {
+  if (x0 === null) return;
+  const dx = e.changedTouches[0].clientX - x0; x0 = null;
+  if (Math.abs(dx) > 50) show(cur + (dx < 0 ? 1 : -1));
+});
+document.addEventListener("visibilitychange", () => document.hidden ? clearTimeout(timer) : show(cur));
+show(0);
 
 // Show the quick-contact dock once the hero is out of view
 const dock = document.getElementById("dock");
