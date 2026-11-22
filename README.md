@@ -14,3 +14,8 @@ Static HTML, deployed on Vercel.
 - `/bookings` requests saved on this device
 
 Prices: set `price` for each car in `assets/js/data.js` (null shows "On request").
+
+## After editing the fleet
+Each car has its own page and link preview. Rebuild them after changing `assets/js/data.js` or `car.html`:
+- `node tools/build-pages.mjs` writes `cars/<slug>.html`
+- `node tools/render-og.mjs` writes `img/og/<slug>.jpg` (needs Playwright)

@@ -24,11 +24,10 @@
 </main>
 <script type="module">
   import { SERVICES, BUSINESS } from '/assets/js/data.js';
-  import { header, footer, icon, esc, $, carBySlug, carImg, fmt, parse, today, isValidDate, bookingDays, quote, money, whenLabel,
+  import { header, icon, esc, $, carBySlug, carImg, fmt, parse, today, isValidDate, bookingDays, quote, money, whenLabel,
     bookingMessage, waLink, newRef, saveBooking, findBooking, locationLabel } from '/assets/js/ui.js';
 
   header('bookings');
-  footer();
   const box = $('#checkout');
   const STEPS = ['Details', 'Review', 'Send', 'Requested'];
   function setStep(n) {

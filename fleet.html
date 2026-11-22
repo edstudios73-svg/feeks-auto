@@ -31,68 +31,38 @@
     <input id="q" type="search" placeholder="Search Range Rover, Mercedes, 2021..." autocomplete="off" enterkeyhint="search">
     <button class="icon-btn" type="button" id="sort-btn" aria-label="Change sort order"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4"/></svg></button>
   </label>
-  <div class="chips" id="chips" role="group" aria-label="Filter by category"></div>
-  <div class="service-pick">
-    <div class="seg" id="service" role="group" aria-label="What are you booking for?"></div>
-    <p id="service-blurb"></p>
-  </div>
-  <p class="sort" id="sort-line"></p>
   <section id="results" class="grid" aria-live="polite"></section>
 </main>
 <script type="module">
-  import { CARS, CATEGORIES, SERVICES } from '/assets/js/data.js';
-  import { header, footer, carCard, wireShare, $, esc } from '/assets/js/ui.js';
+  import { CARS } from '/assets/js/data.js';
+  import { header, carCard, wireShare, toast, $, esc } from '/assets/js/ui.js';
   header('fleet');
-  footer();
   wireShare();
 
   const params = new URLSearchParams(location.search);
-  const state = {
-    q: params.get('q') || '',
-    cat: CATEGORIES.some((c) => c.id === params.get('cat')) ? params.get('cat') : 'all',
-    service: SERVICES[params.get('service')] ? params.get('service') : 'rental',
-    sort: params.get('sort') === 'oldest' ? 'oldest' : 'newest',
-  };
+  const state = { q: params.get('q') || '', sort: params.get('sort') === 'oldest' ? 'oldest' : 'newest' };
   $('#q').value = state.q;
 
-  function matches(c) {
+  const matches = (c) => {
     const q = state.q.trim().toLowerCase();
-    if (!q) return true;
-    return [c.name, c.body, c.year, c.colour, c.luxury ? 'luxury signature' : ''].join(' ').toLowerCase().includes(q);
-  }
-  function sync() {
+    return !q || [c.name, c.body, c.year, c.colour, c.luxury ? 'luxury signature' : ''].join(' ').toLowerCase().includes(q);
+  };
+  function render() {
+    const list = CARS.filter(matches).sort((a, b) => state.sort === 'newest' ? b.year - a.year : a.year - b.year);
+    $('#results').innerHTML = list.length ? list.map((c) => carCard(c)).join('') :
+      `<div class="glass empty" style="grid-column:1/-1"><h2>No cars match "${esc(state.q)}"</h2><p>Try another make or model, or clear the search.</p><button class="btn" type="button" id="clear">Clear search</button></div>`;
     const p = new URLSearchParams();
     if (state.q) p.set('q', state.q);
-    if (state.cat !== 'all') p.set('cat', state.cat);
-    if (state.service !== 'rental') p.set('service', state.service);
     if (state.sort !== 'newest') p.set('sort', state.sort);
     history.replaceState(null, '', p.toString() ? `?${p}` : location.pathname);
   }
-  function render() {
-    const searched = CARS.filter(matches);
-    $('#chips').innerHTML = CATEGORIES.map((c) =>
-      `<button class="chip" type="button" data-cat="${c.id}" aria-pressed="${c.id === state.cat}">${c.label}<b>${searched.filter(c.test).length}</b></button>`).join('');
-    $('#service').innerHTML = Object.entries(SERVICES).map(([id, s]) =>
-      `<button type="button" data-service="${id}" aria-pressed="${id === state.service}">${s.label}</button>`).join('');
-    $('#service-blurb').textContent = SERVICES[state.service].blurb;
-    const cat = CATEGORIES.find((c) => c.id === state.cat);
-    const list = searched.filter(cat.test).sort((a, b) => state.sort === 'newest' ? b.year - a.year : a.year - b.year);
-    $('#sort-line').innerHTML = `${list.length} car${list.length === 1 ? '' : 's'}, ${state.sort === 'newest' ? 'newest' : 'oldest'} first. <button type="button" id="sort-link">Show ${state.sort === 'newest' ? 'oldest' : 'newest'} first</button>`;
-    $('#results').innerHTML = list.length ? list.map((c) => carCard(c, state.service)).join('') :
-      `<div class="glass empty" style="grid-column:1/-1"><h2>No cars match "${esc(state.q)}"</h2><p>Try another make or model, or clear the search.</p><button class="btn" type="button" id="clear">Clear search</button></div>`;
-    sync();
-  }
-  const flipSort = () => { state.sort = state.sort === 'newest' ? 'oldest' : 'newest'; render(); };
   $('#q').addEventListener('input', (e) => { state.q = e.target.value; render(); });
-  $('#sort-btn').addEventListener('click', flipSort);
-  document.addEventListener('click', (e) => {
-    const chip = e.target.closest('[data-cat]');
-    if (chip) { state.cat = chip.dataset.cat; render(); }
-    const svc = e.target.closest('[data-service]');
-    if (svc) { state.service = svc.dataset.service; render(); }
-    if (e.target.id === 'sort-link') flipSort();
-    if (e.target.id === 'clear') { state.q = ''; $('#q').value = ''; render(); }
+  $('#sort-btn').addEventListener('click', () => {
+    state.sort = state.sort === 'newest' ? 'oldest' : 'newest';
+    render();
+    toast(state.sort === 'newest' ? 'Newest first' : 'Oldest first');
   });
+  document.addEventListener('click', (e) => { if (e.target.id === 'clear') { state.q = ''; $('#q').value = ''; render(); } });
   render();
 </script>
 </body>

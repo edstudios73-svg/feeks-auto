@@ -23,7 +23,7 @@
 <main id="main"></main>
 <script type="module">
   import { CARS, SERVICES, BUSINESS, GOOD_TO_KNOW } from '/assets/js/data.js';
-  import { header, footer, icon, esc, $, $$, carImg, carCard, priceLabel, money, calendar, stepper, fmt, quote, bookingDays, wireShare, share, isValidDate } from '/assets/js/ui.js';
+  import { header, icon, esc, $, $$, carImg, carCard, priceLabel, money, calendar, stepper, fmt, quote, bookingDays, wireShare, share, isValidDate } from '/assets/js/ui.js';
 
   header('fleet');
   const slug = decodeURIComponent(location.pathname.split('/').filter(Boolean).pop() || '');
@@ -34,7 +34,6 @@
     document.title = 'Car not found | Signature Motors';
     main.className = 'wrap';
     main.innerHTML = `<div class="glass empty" style="margin-top:40px"><h1 class="serif" style="font-size:34px;margin:0 0 8px">We couldn't find that car</h1><p>It may have been renamed or taken out of the fleet.</p><a class="btn" href="/fleet">See the fleet</a></div>`;
-    footer();
     throw new Error('Unknown car');
   }
 
@@ -153,7 +152,6 @@
       <button class="btn" type="button" id="open">Reserve</button>
     </div>
     <div class="sheet-back" id="back"></div>`;
-  footer();
   wireShare();
 
   // ---------------------------------------------------------------- Booking state
