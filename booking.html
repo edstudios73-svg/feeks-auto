@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Book | Signature Motors</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#050505">
+<meta name="color-scheme" content="dark">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/img/brand/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/img/icons/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<main class="wrap" id="main">
+  <ol class="steps-bar" id="steps" aria-label="Booking progress"></ol>
+  <div class="checkout" id="checkout"></div>
+</main>
+<script type="module">
+  import { SERVICES, BUSINESS } from '/assets/js/data.js';
+  import { header, footer, icon, esc, $, carBySlug, carImg, fmt, parse, today, isValidDate, bookingDays, quote, money, whenLabel,
+    bookingMessage, waLink, newRef, saveBooking, findBooking, locationLabel } from '/assets/js/ui.js';
+
+  header('bookings');
+  footer();
+  const box = $('#checkout');
+  const STEPS = ['Details', 'Review', 'Send', 'Requested'];
+  function setStep(n) {
+    $('#steps').innerHTML = STEPS.map((s, i) =>
+      `<li class="${i + 1 < n ? 'is-done' : i + 1 === n ? 'is-now' : ''}" ${i + 1 === n ? 'aria-current="step"' : ''}><b>${i + 1 < n ? icon('check') : i + 1}</b>${s}</li>`).join('');
+  }
+  function emptyState(title, text, action = '<a class="btn" href="/fleet">Choose a car</a>') {
+    $('#steps').hidden = true;
+    box.innerHTML = `<div class="glass empty" style="grid-column:1/-1;margin-top:30px"><h1 class="serif" style="font-size:32px;margin:0 0 8px">${title}</h1><p>${text}</p>${action}</div>`;
+  }
+
+  // ---------------------------------------------------------------- Summary card
+  function summary(b) {
+    const car = carBySlug(b.car);
+    const s = SERVICES[b.service];
+    const q = quote(b);
+    const d1 = parse(b.start);
+    const big = (d, label, sub, end = false) => `<div class="stay__date ${end ? 'stay__date--end' : ''}"><small>${label}</small><strong>${d.getDate()}</strong><em>${d.toLocaleDateString('en-GB', { month: 'short' })}</em><span>${sub}</span></div>`;
+    let dates;
+    if (s.dates === 'range') {
+      const n = bookingDays(b), d2 = parse(b.end);
+      dates = big(d1, 'Pickup', d1.toLocaleDateString('en-GB', { weekday: 'short' })) +
+        `<span class="stay__mid">— ${n} day${n > 1 ? 's' : ''} —</span>` +
+        big(d2, 'Return', d2.toLocaleDateString('en-GB', { weekday: 'short' }), true);
+    } else {
+      dates = big(d1, 'Date', d1.toLocaleDateString('en-GB', { weekday: 'long' })) +
+        `<div class="stay__date stay__date--end"><small>${s.label}</small><strong>${b.count}</strong><em>car${b.count > 1 ? 's' : ''}</em><span>${b.service === 'escort' ? 'escort or convoy' : 'for your event'}</span></div>`;
+    }
+    return `<aside class="glass stay" aria-label="Your booking">
+      <div class="stay__media"><img src="${carImg(car)}" alt="" style="object-position:${car.pos || '50% 55%'}">
+        <div><p class="eyebrow">Your booking</p><h2>${esc(car.name)}</h2><p class="loc">${icon('pin')}${BUSINESS.area}</p></div></div>
+      <div class="stay__body">
+        <div class="stay__dates">${dates}</div>
+        <div class="stay__row"><span>${icon('car')}${s.label}${b.service === 'rental' ? `, ${b.driver === 'self' ? 'self-drive' : 'with driver'}` : ''}</span><span>${car.year}</span></div>
+        ${q ? `<div class="stay__row"><span>${q.label}</span><span>${money(q.total)}</span></div>` : ''}
+        <div class="stay__total"><span>${q ? 'Estimate' : 'Price'}</span><strong>${q ? money(q.total, true) : 'On request'}</strong></div>
+        <p class="stay__fine">${icon('shield')}No payment now. Price confirmed in writing on WhatsApp.</p>
+      </div>
+    </aside>`;
+  }
+
+  // ---------------------------------------------------------------- Step 1: details
+  function renderDetails(b) {
+    setStep(1);
+    const last = (() => { try { return JSON.parse(localStorage.getItem('sm-guest')) || {}; } catch { return {}; } })();
+    const v = (k) => esc(b[k] ?? last[k] ?? '');
+    box.innerHTML = summary(b) + `
+      <section>
+        <header class="checkout-head">
+          <p class="eyebrow">Step 1 of 3 · No account needed</p>
+          <h1>Who's booking?</h1>
+          <p>We use these details to confirm your booking and nothing else.</p>
+        </header>
+        <form class="glass form" id="details" novalidate>
+          <label>Full name<input name="name" autocomplete="name" required value="${v('name')}"></label>
+          <div class="row2">
+            <label>Phone or WhatsApp number<input name="phone" type="tel" autocomplete="tel" inputmode="tel" required placeholder="024 000 0000" value="${v('phone')}"></label>
+            <label>Email (optional)<input name="email" type="email" autocomplete="email" value="${v('email')}"></label>
+          </div>
+          <label>${locationLabel(b.service)} (optional)<input name="location" value="${esc(b.location ?? '')}" placeholder="${b.service === 'rental' ? 'Where should we bring the car?' : b.service === 'escort' ? 'Where do we start, and where are we going?' : 'Venue name and area'}"></label>
+          <label>Special requests (optional)<textarea name="notes" placeholder="${b.service === 'event' ? 'Type of event, timings, decorations, anything we should know' : 'Timings, airport pickup, anything we should know'}">${esc(b.notes ?? '')}</textarea></label>
+          <label class="check"><input type="checkbox" name="agree" ${b.ref ? 'checked' : ''}><span>I understand my booking is confirmed once ${BUSINESS.name} replies on WhatsApp with availability and price.</span></label>
+          <div id="form-err" aria-live="assertive"></div>
+          <button class="btn btn--lg btn--block" type="submit">Reserve and continue ${icon('arrow')}</button>
+          <ul class="trust"><li>${icon('shield')}No payment now</li><li>${icon('chat')}Confirmed on WhatsApp</li><li>${icon('calendar')}Saved under Bookings</li></ul>
+        </form>
+      </section>`;
+    $('#details').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const f = Object.fromEntries(new FormData(e.target));
+      const errs = [];
+      if (!f.name.trim()) errs.push('Enter your full name.');
+      if (f.phone.replace(/\D/g, '').length < 9) errs.push('Enter a phone number we can reach you on.');
+      if (f.email && !/^\S+@\S+\.\S+$/.test(f.email)) errs.push('Check your email address, or leave it empty.');
+      if (!f.agree) errs.push('Tick the box to confirm you understand how booking works.');
+      if (errs.length) { $('#form-err').innerHTML = errs.map((x) => `<p class="err">${x}</p>`).join(''); return; }
+      Object.assign(b, { name: f.name.trim(), phone: f.phone.trim(), email: f.email.trim(), location: f.location.trim(), notes: f.notes.trim() });
+      if (!b.ref) { b.ref = newRef(); b.created = new Date().toISOString(); }
+      b.status = 'draft';
+      saveBooking(b);
+      try { localStorage.setItem('sm-guest', JSON.stringify({ name: b.name, phone: b.phone, email: b.email })); } catch {}
+      history.replaceState(null, '', `/booking?ref=${encodeURIComponent(b.ref)}`);
+      renderReview(b);
+      scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+  // ---------------------------------------------------------------- Step 2: review and send
+  function kv(b) {
+    const car = carBySlug(b.car);
+    const rows = [
+      ['Service', SERVICES[b.service].label],
+      ['Car', `${car.year} ${car.name}`],
+      [b.service === 'rental' ? 'Dates' : 'Date', whenLabel(b)],
+      b.service === 'rental' ? ['Driver', b.driver === 'self' ? 'Self-drive' : 'With driver'] : ['Cars needed', b.count],
+      b.location && [locationLabel(b.service), b.location],
+      ['Name', b.name], ['Phone', b.phone], b.email && ['Email', b.email], b.notes && ['Requests', b.notes],
+    ].filter(Boolean);
+    return `<dl class="kv">${rows.map(([k, v]) => `<dt>${k}</dt><dd>${esc(v)}</dd>`).join('')}</dl>`;
+  }
+  function renderReview(b) {
+    setStep(2);
+    box.innerHTML = summary(b) + `
+      <section>
+        <header class="checkout-head">
+          <p class="eyebrow">Step 2 of 3 · Review</p>
+          <h1>Check and send your request.</h1>
+          <p>We'll reply on WhatsApp to confirm the car is free and send your price.</p>
+        </header>
+        <div class="glass held">
+          <div class="ref"><span class="eyebrow">Booking reference</span><strong>${esc(b.ref)}</strong></div>
+          ${kv(b)}
+          <a class="btn btn--lg btn--block" id="send" href="${waLink(bookingMessage(b))}" target="_blank" rel="noopener">${icon('chat')}Send request on WhatsApp</a>
+          <button class="btn btn--outline btn--block" type="button" id="edit">Edit details</button>
+          <p class="small muted" style="margin:0">WhatsApp opens with your request written out. Just press send. Prefer to call? <a href="tel:${BUSINESS.phone}">${BUSINESS.phoneLabel}</a></p>
+        </div>
+      </section>`;
+    $('#send').addEventListener('click', () => {
+      b.status = 'sent';
+      b.sent = new Date().toISOString();
+      saveBooking(b);
+      setTimeout(() => { renderSent(b); scrollTo({ top: 0 }); }, 400);
+    });
+    $('#edit').addEventListener('click', () => renderDetails(b));
+  }
+
+  // ---------------------------------------------------------------- Steps 3 and 4: sent
+  function renderSent(b) {
+    setStep(4);
+    box.innerHTML = summary(b) + `
+      <section>
+        <header class="checkout-head" style="text-align:center">
+          <div class="done-mark">${icon('check')}</div>
+          <p class="eyebrow">Request sent</p>
+          <h1>We've got it from here.</h1>
+          <p>${BUSINESS.name} will reply on WhatsApp to confirm your booking.</p>
+        </header>
+        <div class="glass held">
+          <div class="ref"><span class="eyebrow">Booking reference</span><strong>${esc(b.ref)}</strong></div>
+          <ol class="next-steps">
+            <li><b>We check the car</b><span>Availability on your date${b.service === 'rental' ? 's' : ''}.</span></li>
+            <li><b>You get your price</b><span>In writing, on WhatsApp, before you pay anything.</span></li>
+            <li><b>Your car${b.count > 1 ? 's arrive' : ' arrives'}</b><span>Clean and on time${b.location ? `, at ${esc(b.location)}` : ''}.</span></li>
+          </ol>
+          ${kv(b)}
+          <div class="no-print" style="display:grid;gap:10px">
+            <a class="btn btn--block" href="/bookings">View my bookings</a>
+            <button class="btn btn--outline btn--block" type="button" id="print">${icon('print')}Save or print receipt</button>
+            <a class="btn btn--outline btn--block" href="${waLink(bookingMessage(b))}" target="_blank" rel="noopener">${icon('chat')}Didn't send? Open WhatsApp again</a>
+          </div>
+        </div>
+      </section>`;
+    $('#print').addEventListener('click', () => print());
+  }
+
+  // ---------------------------------------------------------------- Route
+  const p = new URLSearchParams(location.search);
+  if (p.get('ref')) {
+    const b = findBooking(p.get('ref'));
+    if (!b) emptyState('Booking not found', `We couldn't find ${esc(p.get('ref'))} on this device. If you sent it from another phone, message us the reference and we'll look it up.`,
+      `<a class="btn" href="${waLink(`Hi ${BUSINESS.name}, I'm checking on booking ${p.get('ref')}.`)}" target="_blank" rel="noopener">Ask on WhatsApp</a>`);
+    else if (b.status === 'draft') renderReview(b);
+    else renderSent(b);
+  } else {
+    const car = carBySlug(p.get('car'));
+    const service = SERVICES[p.get('service')] ? p.get('service') : 'rental';
+    const b = { car: car?.slug, service, start: p.get('start'), end: p.get('end'), driver: p.get('driver') === 'self' ? 'self' : 'with', count: Math.max(1, Math.min(20, Number(p.get('count')) || 1)) };
+    const range = SERVICES[service].dates === 'range';
+    if (!car || !isValidDate(b.start) || (range && !isValidDate(b.end))) {
+      emptyState('Choose a car and dates first', 'Open any car, pick your dates, then tap Reserve.');
+    } else if (parse(b.start) < today() || (range && b.end <= b.start)) {
+      emptyState('These dates can\'t be booked', 'The dates have passed or the return date is before pickup. Choose new dates on the car page.', `<a class="btn" href="/cars/${car.slug}?book=1">Choose new dates</a>`);
+    } else {
+      if (!range) b.end = null;
+      renderDetails(b);
+    }
+  }
+</script>
+</body>
+</html>
