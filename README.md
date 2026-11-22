@@ -1,5 +1,7 @@
-# Feek's Autos Ghana
+# Signature Motors
 
-Mobile-first website for Feek's Autos (Abelemkpe, Accra). Static HTML, deployed on Vercel.
+Website for Signature Motors, Abelemkpe, Accra: car rentals, VIP escorts and convoys, and cars for events.
+Static HTML, deployed on Vercel.
 
-To update the cars shown, edit the `CARS` list near the bottom of `index.html`.
+- Edit the fleet: the `CARS` list near the bottom of `index.html` (photos live in `img/cars/`).
+- Logo files: `img/brand/` (SVG and PNG, black and white versions, monogram and favicon).
